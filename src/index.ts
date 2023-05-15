@@ -6,8 +6,6 @@ import mongoose from 'mongoose';
 import { config } from './config/config';
 import imageRoutes from './routes/images'
 
-const MONGO_URL = 'mongodb+srv://perrypvo:AdMiNuSeR@cluster0.vpxyhhl.mongodb.net/?retryWrites=true&w=majority'
-
 const router = express();
 
 // Connect to mongo db database
