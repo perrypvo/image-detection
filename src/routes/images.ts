@@ -8,4 +8,4 @@ router.post('/images', controller.addImage);
 router.get('/images', controller.getImages);
 router.get('/images/:imageId', controller.getImageById);
 
-export = router;
+export default router;

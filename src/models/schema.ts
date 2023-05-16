@@ -5,7 +5,7 @@ interface IImage {
     url: string;
     label?: string
     enableDetection?: boolean;
-    objects: string[];
+    objects?: string[];
 }
 
 // Database schema

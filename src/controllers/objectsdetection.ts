@@ -33,7 +33,7 @@ const detectObjects = async (url:string) => {
             console.log(response.text)
         }
     } catch(error) {
-        console.log(error.message);
+        console.log(error);
     }
 }
 
