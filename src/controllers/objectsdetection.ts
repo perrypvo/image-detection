@@ -1,6 +1,8 @@
 import { config } from '../config/config';
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
 import {encode} from 'base-64';
+import axios from 'axios';
+import Logging from '../utilities/logging';
 
 interface IObjectDetection {
     confidence: number;
@@ -14,26 +16,25 @@ const detectObjects = async (url:string) => {
     const imageUrl = `${config.imagga.url}?image_url=${url}`;
 
     try {
-        let response = await fetch(imageUrl, 
+        let response = await axios.get(imageUrl, 
         {
-            method:'GET', 
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + encode(`${config.imagga.apiKey}:${config.imagga.apiSecret}`)
             }
         });
-        if (response.ok) {
-            const data = await response.json();
+        if (response.status === 200) {
+            const data = response.data;
             const objectsList = data['result']['tags'] as IObjectDetection[];
             // const detectedObjects = objectsList.filter(item => item.confidence > config.imagga.confidenceThreshold);
             let objects: string[] = [];
             objectsList.forEach(item => objects.push(item.tag.en));
             return objects;
         } else {
-            console.log(response.text)
+            Logging.error(response.statusText)
         }
     } catch(error) {
-        console.log(error);
+        Logging.error(error);
     }
 }
 
